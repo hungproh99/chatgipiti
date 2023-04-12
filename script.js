@@ -1,38 +1,15 @@
-// const openai = require('openai');
-// import { Configuration, OpenAIApi } from "openai";
-// const configuration = new Configuration({
-//     organization: "org-416YHOv9l3LcxoZbZRYrkUhN",
-//     apiKey: process.env.OPENAI_API_KEY,
-// });
-// const openai = new OpenAIApi(configuration);
-
-
-// const chatMessages = $('#chat-messages');
-// const chatForm = $('#chat-form');
-// const chatInput = $('#chat-input').val();
-// const send = $('#send');
-
-
-
 $('#send').click(async function(e) {
     e.preventDefault();
+    const apiUrl = 'https://api.openai.com/v1/engines/davinci/completions';
+    const corsProxyUrl = 'https://cors-anywhere.herokuapp.com/';
 
-    // const response = await openai.createCompletion({
-    //     model: "text-davinci-003",
-    //     prompt: chatInput,
-    //     temperature: 0.5,
-    //     max_tokens: 50,
-    //     top_p: 1,
-    //     frequency_penalty: 0,
-    //     presence_penalty: 0
-    // });
-
-    // console.log(response);
+    const url = `${corsProxyUrl}${apiUrl}`;
 
     $.ajax({
-        url: "ttps://api.openai.com/v1/chat/completions",
+        url: "https://api.openai.com/v1/chat/completions",
         type: 'POST',
-        data: {
+        contentType: 'application/json',
+        data: JSON.stringify({
             "messages": [{ "role": "user", "content": $('#chat-input').val() }],
             "temperature": 0.7,
             "max_tokens": 256,
@@ -41,17 +18,23 @@ $('#send').click(async function(e) {
             "presence_penalty": 0,
             "model": "gpt-3.5-turbo",
             "stream": true
-        },
+        }),
         headers: {
-            "Authorization": `Bearer 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`,
-            "OpenAI-Organization": "org-416YHOv9l3LcxoZbZRYrkUhN",
-            "Content-Type": "application/json"
+            "Authorization": `Bearer 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`,
+            "OpenAI-Organization": "org-416YHOv9l3LcxoZbZRYrkUhN"
         },
-        done: function(result) {
-            console.log(result);
+        success: function(response) {
+            // const value = response.slice(response.indexOf(':') + 1);
+            // console.log("value");
+            // console.log(value);
+            // const result = JSON.parse(value);
+
+            // console.log("done");
+            // console.log(result.choices.delta.content);
+            console.log(response.choices);
         },
-        error: function(xhr) {
-            console.log(xhr);
+        error: function(xhr, status, error) {
+            console.error('Request failed.  Returned status of ' + xhr.status + '. Error message: ' + error);
         }
     });
 });

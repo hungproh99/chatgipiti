@@ -1,10 +1,5 @@
-$('#send').click(async function(e) {
+$('#send').click(function(e) {
     e.preventDefault();
-    const apiUrl = 'https://api.openai.com/v1/engines/davinci/completions';
-    const corsProxyUrl = 'https://cors-anywhere.herokuapp.com/';
-
-    const url = `${corsProxyUrl}${apiUrl}`;
-
     $.ajax({
         url: "https://api.openai.com/v1/chat/completions",
         type: 'POST',
@@ -20,8 +15,7 @@ $('#send').click(async function(e) {
             "stream": true
         }),
         headers: {
-            "Authorization": `Bearer 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`,
-            "OpenAI-Organization": "org-416YHOv9l3LcxoZbZRYrkUhN"
+            "Authorization": `Bearer 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`
         },
         success: function(response) {
             // const value = response.slice(response.indexOf(':') + 1);
@@ -32,6 +26,7 @@ $('#send').click(async function(e) {
             // console.log("done");
             // console.log(result.choices.delta.content);
             console.log(response.choices);
+            $("#chat-messages").append(response)
         },
         error: function(xhr, status, error) {
             console.error('Request failed.  Returned status of ' + xhr.status + '. Error message: ' + error);

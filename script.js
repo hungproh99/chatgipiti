@@ -31,6 +31,7 @@ $('#send').click(async function(e) {
 
     $.ajax({
         url: "ttps://api.openai.com/v1/chat/completions",
+        type: 'POST',
         data: {
             "messages": [{ "role": "user", "content": $('#chat-input').val() }],
             "temperature": 0.7,
@@ -46,8 +47,11 @@ $('#send').click(async function(e) {
             "OpenAI-Organization": "org-416YHOv9l3LcxoZbZRYrkUhN",
             "Content-Type": "application/json"
         },
-        success: function(result) {
-            $("#div1").html(result);
+        done: function(result) {
+            console.log(result);
+        },
+        error: function(xhr) {
+            console.log(xhr);
         }
     });
 });

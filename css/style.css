@@ -1,13 +1,61 @@
-#chat-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    width: 100%;
-    padding: 20px;
+body {
+    margin: 0;
+    background-color: #202123;
+    color: #d1d5db;
 }
 
-#chat-messages {
+img {
+    width: 40px;
+    margin: 10px 0;
+}
+
+#chat-container {
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 98vh;
+    width: 100%;
+}
+
+#chat-zone {
+    width: 85%;
+    height: 90%;
+    border: #343541 black 1px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    overflow: auto;
+    background-color: #343541;
+}
+
+.chat-received {
+    display: flex;
+    padding: 5px 0;
     overflow-y: auto;
+    width: 100%;
+    background-color: #444654;
+    color: #d1d5db;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.chat-received div {
+    padding: 10px 0;
+}
+
+.chat-sent {
+    display: flex;
+    padding: 5px 0;
+    overflow-y: auto;
+    width: 100%;
+    background-color: #343541;
+    color: #d1d5db;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.chat-sent div {
+    padding: 10px 0;
 }
 
 #chat-form {
@@ -21,10 +69,86 @@
 
 #send {}
 
-#chat-zone {
+.filter {
+    z-index: 999;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 1);
     width: 100%;
-    height: 90%;
-    border: solid black 1px;
+    height: 100vh;
+    top: 0;
+}
+
+.filter-model {
+    width: 40%;
+    height: 10%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: #b5b5b5;
+    transform: translate(-50%, -100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 5px;
-    margin-bottom: 20px;
+}
+
+.filter-model input {
+    margin-left: 5px;
+}
+
+.key-input {
+    width: 60%;
+}
+
+#loading-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 9999;
+    display: none;
+    /* hide by default */
+}
+
+.spinner {
+    margin: auto;
+    width: 64px;
+    height: 64px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.spinner:before,
+.spinner:after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    margin: 0 auto;
+    border-radius: 50%;
+    border: 6px solid rgba(0, 0, 0, 0.1);
+    border-top-color: rgba(0, 0, 0, 0.8);
+    border-left-color: rgba(0, 0, 0, 0.8);
+    animation: spinner 0.8s linear infinite;
+}
+
+.spinner:before {
+    margin-top: -32px;
+    animation-delay: -0.16s;
+}
+
+.spinner:after {
+    margin-top: -26px;
+    animation-delay: 0;
+}
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
 }
